@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>
+      MackFood | Login
+    </title>
+    <style>
+      body{
+        background-color: #e3a514;
+      }
+      h1 {
+        font-family: Candara;
+        font-size: 33px;
+        text-align: center;
+      }
+      #lbl{
+        font-family: Candara;  
+        font-size: 18px;
+      }
+      #txt_input{
+        background-color: transparent;
+        border-radius: 6px;
+        border-color: #878684;
+      }
+      #form1{
+        text-align: center;
+        padding-top: 50px;
+        align-items: center;
+        display : flex;
+        flex-direction: column;
+      }
+      #logo{
+        width: 128px;
+        height: 128px;
+        padding-bottom : 50px;
+      }
+      #btn_logar{
+        margin-top: 50px;
+      }
+      .box_error{
+          background-color:#bf393c;
+          border-radius: 6px;
+          margin-top: 10px;
+          padding-left: 10px;
+          padding-right: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>
+        Bem vindo ao sistema de login da rede de restaurantes MackFood!
+    </h1>
+    <form method="post" action="login" id="form1">
+        <img src="{{url_for('static', filename='/login/mack_food_logo.png')}}" id="logo"></img>
+        <label id="lbl">Login:</label><br>
+        <input type="text" id="txt_input" name="_login"><br>
+        <label id="lbl">Senha:</label><br>
+        <input type="text" id="txt_input" name="_senha">  
+
+        <button type="submit" name="btn_logar" id="btn_logar">Acessar</button>
+        {%if mensagem %}  
+        <div class="box_error">
+            <h3>
+                {{mensagem}}
+            </h3>
+        </div>
+        {% endif %}
+    </form>    
+  </body>
+</html>
