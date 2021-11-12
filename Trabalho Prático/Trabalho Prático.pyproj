@@ -23,6 +23,9 @@
     <Compile Include="app.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="config.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="views.py">
       <SubType>Code</SubType>
     </Compile>
@@ -36,7 +39,9 @@
     <Folder Include="templates\main\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="script_db.sql" />
     <Content Include="templates\login\login.html" />
+    <Content Include="templates\main\cadastro_funcionario.html" />
     <Content Include="templates\main\funcionario.html" />
     <Content Include="templates\main\main.html" />
   </ItemGroup>

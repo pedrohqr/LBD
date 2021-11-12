@@ -1,0 +1,195 @@
+<html>
+<head>
+    <title>
+        MackFood | Home
+    </title>
+
+    <style>
+        body {
+            background-color: #e3a514;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        #lbl {
+            font-family: Candara;
+            font-size: 18px;
+        }
+
+        #logo {
+            width: 128px;
+            height: 128px;
+            padding-bottom: 50px;
+        }
+
+        .l_barra {
+            background-color: white;
+            width: 128px;
+            height: auto;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lto {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .link {
+            text-decoration: none;
+            font-family: Arial;
+            color: black;
+        }
+
+        #btn_sair {
+            background-color: #f01d32;
+            color: white;
+        }
+
+        .layout_main {
+            background-color: #f2c55c;
+            width: auto;
+            border-radius: 10px;
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align_items: center;
+        }
+
+        #form1 {
+            width: 500px;
+            margin-left: 10px;
+            margin-right: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align_items: center;
+        }
+
+        #tab_func {
+            font-family: Arial;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        #tab_func {
+            font-family: Arial;
+            margin-left: 20px;
+        }
+
+        td, th {
+            border: 1px solid #999;
+            padding: 0.5rem;
+            color: black;
+        }
+        #lbl_endereco {
+            font-family: Arial;
+            align-self: center;
+        }
+    </style>
+</head>
+<body onload="flashMessage()">
+    <script>
+    function flashMessage() {
+      if ("{{ mensagem }}" != "") {
+        alert("{{mensagem}}");
+      }
+    }
+    </script>
+    <!-- HTML 4 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- HTML5 -->
+    <meta charset="utf-8" />
+
+    <div class="l_barra">
+        <img src="{{url_for('static', filename='/login/mack_food_logo.png')}}" id="logo" />
+        <div class="lto">
+            <a href="/home/{{id_usuario}}/funcionario" class="link">
+                Funcionários
+            </a>
+        </div>
+        <div class="lto">
+            <a href="" class="link">
+                Clientes
+            </a>
+        </div>
+        <div class="lto">
+            <a href="" class="link">
+                Pratos
+            </a>
+        </div>
+        <div class="lto">
+            <a href="" class="link">
+                Produtos
+            </a>
+        </div>
+        <div class="lto">
+            <a href="{{ url_for('login') }}" class="link" id="btn_sair">
+                Sair
+            </a>
+        </div>
+    </div>
+    <div class="layout_main">
+        <form method="post" action="/home/{{id_usuario}}/funcionario/cadastro" id="form1">
+            <h1>Cadastrar novo funcionário</h1>
+            <label id="lbl">*Nome Completo:</label>
+            <input type="text" id="txt_input" name="_nome" maxlength="50"></br>
+
+            <label id="lbl">*Login:</label>
+            <input type="text" id="txt_input" name="_login" maxlength="20"></br>
+
+            <label id="lbl">*Senha:</label>
+            <input type="text" id="txt_input" name="_senha" maxlength="20"></br>
+
+            <label id="lbl">*CPF(Somente números):</label>
+            <input type="text" id="txt_input" name="_cpf" maxlength="11"><br>
+
+            <label id="lbl">Data de nascimento(dd/mm/aaaa):</label>
+            <input type="text" id="txt_input" name="_data_nascimento" maxlength="10"><br>
+
+            <label id="lbl">*Telefone:</label>
+            <input type="text" id="txt_input" name="_telefone" maxlength="11"><br>
+
+            <label id="lbl">*Salário(decimal: "."):</label><br>
+            <input type="text" id="txt_input" name="_salario" maxlength="18"><br>
+
+            <label id="lbl">Cargo:</label>
+            <select name="_cargo">
+                {% for cargo in cargos %}
+                <option value="{{cargo[0]}}">{{cargo[1]}}</option>
+                {% endfor %}
+            </select><br>
+
+            <label id="lbl_endereco">Endereço</label>
+
+            <label id="lbl">*Logradouro:</label>
+            <input type="text" id="txt_input" name="_e_logradouro" maxlength="50"><br>
+
+            <label id="lbl">*Número:</label>
+            <input type="text" id="txt_input" name="_e_numero" maxlength="6"><br>
+
+            <label id="lbl">*Bairro:</label>
+            <input type="text" id="txt_input" name="_e_bairro" maxlength="30"><br>
+
+            <label id="lbl">*Cidade:</label>
+            <input type="text" id="txt_input" name="_e_cidade" maxlength="30"><br>
+
+            <label id="lbl">*Estado:</label>
+            <input type="text" id="txt_input" name="_e_estado" maxlength="30"><br>
+
+            <label id="lbl">*CEP:</label>
+            <input type="text" id="txt_input" name="_e_cep" maxlength="8"><br>
+
+            <button type="submit" name="btn_cadastrar" id="btn_cadastrar">Cadastrar</button><br>
+
+
+        </form>
+    </div>
+</body>
+</html>

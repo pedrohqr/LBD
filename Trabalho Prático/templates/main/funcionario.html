@@ -1,31 +1,152 @@
 <html>
-    <head>
-        <style>
+  <head>
+    <title>
+      MackFood | Home
+    </title>
+    
+    <style>
+      body{
+        background-color: #e3a514;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+      #lbl{
+        font-family: Candara;  
+        font-size: 18px;
+      }
+      td:hover{
+        background-color:gray;
+        cursor:pointer;
+      }
+      #logo{
+        width: 128px;
+        height: 128px;
+        padding-bottom : 50px;
+      }
+      .l_barra{
+        background-color: white;
+        width: 128px;
+        height: auto;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .lto{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .link{
+        text-decoration: none;
+        font-family: Arial;
+        color: black;
 
-        </style>
-    </head>
-    <body>
-        <!-- HTML 4 -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <!-- HTML5 -->
-        <meta charset="utf-8"/>
+      }
+      #btn_sair{
+        background-color: #f01d32;
+        color: white;
+      }
+      .layout_main{
+        background-color: #f2c55c;
+        border-radius: 10px;
+        margin-left: 10px;
+      }
+      #tab_func{
+        font-family: Arial;
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+      #tab_func{
+        font-family: Arial;
+        margin-left: 20px;
+      }
+      td, th {
+        border: 1px solid #999;
+        padding: 0.5rem;
+        color: black;
+      }
+    </style>
+  </head>
+  <body onload="flashMessage()">
+    <script>
+        function flashMessage() {
+            if ("{{ mensagem }}" != "") {
+                alert("{{mensagem}}");
+            }
+        }
+    </script>
+    <!-- HTML 4 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- HTML5 -->
+    <meta charset="utf-8"/>
 
-        <table>
-            <h1>
-                Eita nois
-            </h1>
-            <tr>
-                {% for cabecalho in header %}
-                <th>{{ cabecalho }}</th>
-                {% endfor %}
-            </tr>
-            {% for row in data %}
-            <tr>
-                {% for cell in row %}
-                <td>{{ cell }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}    
+    <div class="l_barra">
+      <img src="{{url_for('static', filename='/login/mack_food_logo.png')}}" id="logo"/>  
+      <div class="lto">
+          <a href="/home/{{id_usuario}}/funcionario" class="link">
+            Funcionários
+          </a>
+      </div>
+      <div class="lto">
+        <a href="" class="link">
+          Clientes
+        </a>
+      </div>
+      <div class="lto">
+        <a href="" class="link">
+          Pratos
+        </a>
+      </div>
+      <div class="lto">
+        <a href="" class="link">
+          Produtos
+        </a>
+      </div>
+      <div class="lto">
+        <a href="{{ url_for('login') }}" class="link" id="btn_sair">
+          Sair
+        </a>
+      </div>
+    </div>
+    <div class="layout_main">
+      <table id="tab_func">
+        <h1>
+            Funcionários
+        </h1>
+        <tr>
+            {% for cabecalho in header %}
+            <th>{{ cabecalho }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}    
         </table>
-    </body>
+        {% if gerente %}
+          <button onclick="location.href='/home/{{id_usuario}}/funcionario/cadastro'" type="button">
+            Cadastrar novo
+          </button>
+          <button onclick="" type="button">
+            Atualizar dados
+          </button>
+          <button onclick="" type="button">
+            Excluir
+          </button>
+        {% endif %}
+    </div>
+   <!-- <script> 
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script> -->
+  </body>
 </html>

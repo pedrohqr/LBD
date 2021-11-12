@@ -56,10 +56,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- HTML5 -->
     <meta charset="utf-8"/>
+
     <div class="l_barra">
       <img src="{{url_for('static', filename='/login/mack_food_logo.png')}}" id="logo"/>  
       <div class="lto">
-          <a href="/1/get_tab_funcionario/1" class="link">
+          <a href="/home/{{id_usuario}}/funcionario" class="link">
             Funcionários
           </a>
       </div>
@@ -86,7 +87,7 @@
     </div>
     <div class="layout_main">
       
-      <iframe src="{%if iframe %}{{ iframe }}{% endif %}" title="tab_func"></iframe>
+      
     </div>
   </body>
 </html>
