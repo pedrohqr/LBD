@@ -98,6 +98,12 @@ Id_ingrediente Integer REFERENCES Ingrediente(Id_Ingrediente),
 Quantidade Decimal (10,2)
 );
 
+drop table if exists Logs CASCADE;
+create table Logs(
+Descricao VARCHAR(255),
+Data_Hora TIMESTAMP
+);
+
 --criando as sequências para os ID's
 
 drop sequence if exists seq_cargo_id;
@@ -206,6 +212,63 @@ BEGIN
 	END IF;
 END;
 $$ LANGUAGE PLPGSQL;	
+
+
+--função para cadastrar novo cliente
+DROP FUNCTION IF EXISTS cadastra_cliente(_nome text, _telefone text,_logradouro text, 
+										 _numero text, _bairro text, _cidade text,
+										 _estado text, _cep text);
+CREATE OR REPLACE FUNCTION 
+cadastra_cliente(_nome text, _telefone text,_logradouro text, 
+				 _numero text, _bairro text, _cidade text,
+				 _estado text, _cep text)
+RETURNS TEXT AS $$
+DECLARE
+	registro cliente%rowtype;
+	aux_id_endereco INT;
+	I INT;
+BEGIN
+	INSERT INTO cliente(nome, telefone)
+	VALUES(_nome, _telefone);
+	INSERT INTO endereco(logradouro, numero, bairro, cidade, estado, cep)
+	VALUES(_logradouro, _numero, _bairro, _cidade, _estado, _cep);
+	SELECT id_endereco INTO aux_id_endereco FROM endereco WHERE cep LIKE _cep AND numero LIKE _numero;
+	UPDATE cliente SET id_endereco = aux_id_endereco WHERE id_cliente = (SELECT LAST_VALUE FROM seq_cliente_id);
+
+	RETURN 'Funcionário cadastrado com sucesso!';
+END;
+$$ LANGUAGE PLPGSQL;
+
+--função para indicar os eventos na tabela de clientes
+DROP FUNCTION IF EXISTS f_logs_cli() CASCADE;
+CREATE OR REPLACE FUNCTION f_logs_cli()
+RETURNS TRIGGER AS $$
+DECLARE
+	tempo TIMESTAMP = now();
+BEGIN
+	IF TG_OP LIKE 'INSERT' THEN
+		INSERT INTO Logs(descricao, data_hora)
+		VALUES(CONCAT('O cliente ',  new.nome, ' foi cadastrado'), tempo);
+	ELSIF TG_OP LIKE 'UPDATE' THEN
+		INSERT INTO Logs(descricao, data_hora)
+		VALUES(CONCAT('O cliente ', new.nome, ' foi atualizado'), tempo);
+	ELSIF TG_OP LIKE 'DELETE' THEN
+		INSERT INTO Logs(descricao, data_hora)
+		VALUES(CONCAT('O cliente ', old.nome, ' foi excluído'), tempo);
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE PLPGSQL;
+
+--trigger
+
+DROP TRIGGER IF EXISTS tr_logs_cli
+ON Logs CASCADE;
+
+CREATE TRIGGER tr_logs_cli AFTER
+UPDATE OR DELETE OR INSERT
+ON cliente FOR EACH ROW
+EXECUTE FUNCTION f_logs_cli();
 
 --cadastro padrão ao gerar o banco:
 

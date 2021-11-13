@@ -59,13 +59,20 @@
 
     <div class="l_barra">
       <img src="{{url_for('static', filename='/login/mack_food_logo.png')}}" id="logo"/>  
+      {% if adm %}
+      <div class="lto">
+          <a href="/home/{{id_usuario}}/ger" class="link">
+            Empresa
+          </a>
+      </div>
+      {% endif %}
       <div class="lto">
           <a href="/home/{{id_usuario}}/funcionario" class="link">
             Funcionários
           </a>
       </div>
       <div class="lto">
-        <a href="" class="link">
+        <a href="/home/{{id_usuario}}/cliente" class="link">
           Clientes
         </a>
       </div>

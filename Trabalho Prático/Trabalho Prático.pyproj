@@ -41,7 +41,10 @@
   <ItemGroup>
     <Content Include="script_db.sql" />
     <Content Include="templates\login\login.html" />
+    <Content Include="templates\main\cadastro_cliente.html" />
     <Content Include="templates\main\cadastro_funcionario.html" />
+    <Content Include="templates\main\cliente.html" />
+    <Content Include="templates\main\empresa.html" />
     <Content Include="templates\main\funcionario.html" />
     <Content Include="templates\main\main.html" />
   </ItemGroup>

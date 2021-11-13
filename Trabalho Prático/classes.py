@@ -50,7 +50,6 @@ class Usuario(Conexao):
         con.cursor.execute("SELECT nome "+
                            "FROM funcionario "+
                            "WHERE id_cargo = 1 AND id_funcionario = %s;", (id))
-
         if con.cursor.fetchone() != None:
             return True
         else:
@@ -58,6 +57,7 @@ class Usuario(Conexao):
         
         con.conexao.commit()
         Conexao.fecha_con(con.conexao, con.cursor)
+       
 
     #retorna tabela de cargos
     def get_cargos():
@@ -84,3 +84,44 @@ class Usuario(Conexao):
             Conexao.fecha_con(con.conexao, con.cursor)
         except Exception as error:
             return error
+
+class Cargo(Conexao):
+    """Classe para os cargos da empresa"""
+
+    #cadastra um novo cargo
+    def cadastra_cargo(nome):
+        try:
+            con = Conexao()
+            query = "INSERT INTO cargo (nome_cargo) VALUES (%s);"
+            con.cursor.execute(query, (nome,))
+            con.conexao.commit()
+            Conexao.fecha_con(con.conexao, con.cursor)
+            return 'Cargo cadastrado com sucesso'
+        except Exception as erro:
+            return erro
+
+class Cliente(Conexao):
+    """Classe para os clientes"""
+
+    #cadastra um novo cliente
+    def cadastra_cliente(nome, telefone, logradouro, numero, bairro, cidade, estado, cep):
+        try:
+            con = Conexao()
+            con.cursor.execute("SELECT cadastra_cliente(%s, %s, %s, %s, %s, %s, %s, %s);", (nome, telefone, logradouro, numero, bairro, cidade, estado, cep))
+
+            con.conexao.commit()
+
+            return con.cursor.fetchone()[0]
+            Conexao.fecha_con(con.conexao, con.cursor)
+        except Exception as error:
+            return error
+
+    #retorna tabela de clientes da empresa
+    def getTab_Clientes():
+        con = Conexao()
+        con.cursor.execute("SELECT id_cliente, nome, telefone FROM cliente;")
+        
+        return con.cursor.fetchall()
+        
+        con.conexao.commit()
+        Conexao.fecha_con(con.conexao, con.cursor)

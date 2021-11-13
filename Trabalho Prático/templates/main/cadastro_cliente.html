@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>
-        MackFood | Funcionário
+        MackFood | Funcionario
     </title>
 
     <style>
@@ -88,6 +88,7 @@
             padding: 0.5rem;
             color: black;
         }
+
         #lbl_endereco {
             font-family: Arial;
             align-self: center;
@@ -95,6 +96,10 @@
     </style>
 </head>
 <body onload="flashMessage()">
+    <!-- HTML 4 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- HTML5 -->
+    <meta charset="utf-8" />
     <script>
     function flashMessage() {
       if ("{{ mensagem }}" != "") {
@@ -102,11 +107,6 @@
       }
     }
     </script>
-    <!-- HTML 4 -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <!-- HTML5 -->
-    <meta charset="utf-8" />
-
     <div class="l_barra">
         <img src="{{url_for('static', filename='/login/mack_food_logo.png')}}" id="logo" />
         {% if adm %}
@@ -118,7 +118,7 @@
         {% endif %}
         <div class="lto">
             <a href="/home/{{id_usuario}}/funcionario" class="link">
-                Funcionários
+                Funcionarios
             </a>
         </div>
         <div class="lto">
@@ -143,42 +143,20 @@
         </div>
     </div>
     <div class="layout_main">
-        <form method="post" action="/home/{{id_usuario}}/funcionario/cadastro" id="form1">
+        <form method="post" action="/home/{{id_usuario}}/cliente/cadastro" id="form1">
             <h1>Cadastrar novo cliente</h1>
             <label id="lbl">*Nome Completo:</label>
             <input type="text" id="txt_input" name="_nome" maxlength="50"></br>
 
-            <label id="lbl">*Login:</label>
-            <input type="text" id="txt_input" name="_login" maxlength="20"></br>
-
-            <label id="lbl">*Senha:</label>
-            <input type="text" id="txt_input" name="_senha" maxlength="20"></br>
-
-            <label id="lbl">*CPF(Somente números):</label>
-            <input type="text" id="txt_input" name="_cpf" maxlength="11"><br>
-
-            <label id="lbl">Data de nascimento(dd/mm/aaaa):</label>
-            <input type="text" id="txt_input" name="_data_nascimento" maxlength="10"><br>
-
             <label id="lbl">*Telefone:</label>
             <input type="text" id="txt_input" name="_telefone" maxlength="11"><br>
 
-            <label id="lbl">*Salário(decimal: "."):</label><br>
-            <input type="text" id="txt_input" name="_salario" maxlength="18"><br>
-
-            <label id="lbl">Cargo:</label>
-            <select name="_cargo">
-                {% for cargo in cargos %}
-                <option value="{{cargo[0]}}">{{cargo[1]}}</option>
-                {% endfor %}
-            </select><br>
-
-            <label id="lbl_endereco">Endereço</label>
+            <label id="lbl_endereco">Endereco</label>
 
             <label id="lbl">*Logradouro:</label>
             <input type="text" id="txt_input" name="_e_logradouro" maxlength="50"><br>
 
-            <label id="lbl">*Número:</label>
+            <label id="lbl">*Numero:</label>
             <input type="text" id="txt_input" name="_e_numero" maxlength="6"><br>
 
             <label id="lbl">*Bairro:</label>
