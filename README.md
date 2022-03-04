@@ -3,4 +3,5 @@ This project was built using Flask framework by Python 3.10. It's a Web Applicat
 - Default URL acess: (LocalIP):(4449)/
 - Login: admin
 - Password: admin
+
 The WebPages was built in HTML/CSS inside on "/templates/..."
